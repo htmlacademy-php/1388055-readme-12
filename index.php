@@ -1,4 +1,16 @@
 <?php
+
+function ten ($text, $length = 300)
+{ 
+    if(strlen($text) < $length){
+        return $text;
+    } else {
+        $one = substr($text, 0, $length);
+        return $one . '<a class="post-text__more-link" href="#">Читать далее</a>';
+    }
+ 
+}
+
 $is_auth = rand(0, 1);
 
 $user_name = 'Диана'; // укажите здесь ваше имя
@@ -221,9 +233,9 @@ $user_name = 'Диана'; // укажите здесь ваше имя
                     <?php if ($value[typ] === "post-quote"); ?>
                         <blockquote>
                             <p>
-                                <!--здесь текст-->
+                            <?=ten($value['content'])?>
                             </p>
-                            <cite>Неизвестный Автор</cite>
+                            <cite><?=$value['title']?></cite>
                         </blockquote>
                     <?php endif; ?>
 
@@ -237,10 +249,10 @@ $user_name = 'Диана'; // укажите здесь ваше имя
                                     
                                 </div>
                                 <div class="post-link__info">
-                                    <h3><!--здесь заголовок--></h3>
+                                    <h3><?=$value['title']?></h3>
                                 </div>
                             </div>
-                            <span><!--здесь ссылка--></span>
+                            <span><?=ten($value['content'])?></span>
                         </a>
                     </div>
                     <?php endif; ?>
@@ -248,7 +260,7 @@ $user_name = 'Диана'; // укажите здесь ваше имя
                     <!--содержимое для поста-фото-->
                     <?php if ($value[typ] === "post-photo"); ?>
                     <div class="post-photo__image-wrapper">
-                        <img src="img/" alt="Фото от пользователя" width="360" height="240">
+                        <img src="img/<?=$value['content']?>" alt="<?=$value['title']?>" width="360" height="240">
                     </div>
                     <?php endif; ?>
 
@@ -256,7 +268,7 @@ $user_name = 'Диана'; // укажите здесь ваше имя
                     <?php if ($value[typ] === "post-video"); ?>
                     <div class="post-video__block">
                         <div class="post-video__preview">
-                            <?=embed_youtube_cover(/* вставьте ссылку на видео */); ?>
+                            <?=embed_youtube_cover(print($value['content'])); ?>
                             <img src="img/coast-medium.jpg" alt="Превью к видео" width="360" height="188">
                             
                         </div>
@@ -280,10 +292,10 @@ $user_name = 'Диана'; // укажите здесь ваше имя
                         <a class="post__author-link" href="#" title="Автор">
                             <div class="post__avatar-wrapper">
                                 <!--укажите путь к файлу аватара-->
-                                <img class="post__author-avatar" src="img/" alt="Аватар пользователя">
+                                <img class="post__author-avatar" src="img/<?=$value['avatar']?>" alt="Аватар пользователя">
                             </div>
                             <div class="post__info">
-                                <b class="post__author-name"><!--здесь имя пользоателя--></b>
+                                <b class="post__author-name"><?=$value['name']?></b>
                                 <time class="post__time" datetime="">дата</time>
                             </div>
                         </a>
